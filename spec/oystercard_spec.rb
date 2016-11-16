@@ -60,7 +60,7 @@ describe Oystercard do
       expect(subject.in_journey?).to eq false
     end
 
-    it "tests that touch_out stores a station" do
+    xit "tests that touch_out stores a station" do
       subject.top_up(50)
       subject.touch_in(station)
       subject.touch_out(exit_station)
@@ -75,15 +75,17 @@ describe Oystercard do
 
 
 
+
+
   end
 
   context "Recording a journey" do ##############################
 
-    it 'populates array with entry station and exit station when touching out' do
+    xit 'populates array with entry station and exit station when touching out' do
       subject.top_up(50)
       subject.touch_in(station)
       subject.touch_out(exit_station)
-      expect(subject.journey).to eq [station, exit_station]
+      expect(subject.journey).to eq {:entry_station => entry_station, :exit_station => exit_station}
     end
 
 
