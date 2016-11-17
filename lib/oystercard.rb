@@ -30,7 +30,10 @@ class Oystercard
   end
 
   def touch_out
+    deduct(MINIMUM)
     @journey = false
   end
+
+  private :deduct
 
 end

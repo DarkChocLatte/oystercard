@@ -25,7 +25,7 @@ describe Oystercard do
   context "Does the balance feature work as intended" do
 
       it 'allows top_up to increase the balance' do
-        amount = 10
+        amount = 100
         expect(subject.top_up(amount)).to eq(subject.balance)
       end
 
@@ -34,9 +34,10 @@ describe Oystercard do
         expect{subject.top_up(1)}.to raise_error("Card exceeds 90!")
       end
 
-      it 'deducts spent money' do
-        expect{subject.deduct(1)}.to change{subject.balance}
-      end
+      # it 'deducts spent money' do
+      #   balance = 20
+      #   expect{subject.deduct(1)}.to change{subject.balance}
+      # end
   end
 
   it 'tracks a users journey' do
@@ -56,6 +57,12 @@ describe Oystercard do
       it 'knows if a user has touched out' do
         expect(subject.touch_out).to eq false
       end
+
+      it 'deducts fare from balance' do
+        subject.top_up(5)
+        subject.touch_in
+        expect{subject.touch_out}.to change{subject.balance}.by -1
+      end
   end
 
   context "it raises an error when" do
@@ -64,6 +71,8 @@ describe Oystercard do
       expect{subject.touch_in}.to raise_error("Insufficient funds please top up")
       end
   end
+
+
 
 
 end
